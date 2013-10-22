@@ -7,9 +7,13 @@ class Donor
   field :middle_names, type: String
   field :last_name,    type: String
 
+  embeds_one :address, as: :addressable
+
   entity do
-    [ :_id, :title, :first_name, :middle_names, :last_name ].each do |field|
+    [ :_id, :title, :first_name, :middle_names, :last_name, :address ].each do |field|
       expose field, :if => lambda { |object, options| object.send(field) }
     end
+
+    expose :address, :using => Address::Entity, :if => lambda { |object, options| object.address }
   end
 end
