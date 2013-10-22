@@ -4,8 +4,11 @@
 guard :rspec, all_on_start: true do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^spec/api/.+_spec\.rb$})
-  watch(%r{^api/(.+)\.rb$})     { |m| "spec/api/#{m[1]}_spec.rb" }
-  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
+
+  watch(%r{^api/(.+)\.rb$})            { |m| "spec/api/#{m[1]}_spec.rb" }
+  watch(%r{^app/models/(.+)\.rb$})     { |m| "spec" }
+  watch(%r{^lib/(.+)\.rb$})            { |m| "spec/lib/#{m[1]}_spec.rb" }
+
   watch('spec/spec_helper.rb')  { "spec" }
 
   # Rails example

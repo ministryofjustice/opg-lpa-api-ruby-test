@@ -7,6 +7,9 @@ class Donor
   field :middle_names, type: String
   field :last_name,    type: String
 
+  validates :first_name, presence: true
+  validates :last_name,  presence: true
+
   embeds_one :address, as: :addressable
 
   entity do
