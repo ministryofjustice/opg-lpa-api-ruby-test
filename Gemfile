@@ -11,6 +11,7 @@ gem 'grape-swagger'
 gem 'json'
 
 group :development, :test do
+  gem 'rerun'
   gem 'rspec'
   gem 'pry-byebug'
 end
