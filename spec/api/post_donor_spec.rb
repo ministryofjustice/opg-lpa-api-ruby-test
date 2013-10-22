@@ -8,10 +8,11 @@ describe Lpa::API do
   end
 
   it "POST title, name" do
-    json = { 'title' => 'Mr', 'first_name' => 'James' }
+    json = { 'donor' => { 'title' => 'Mr', 'first_name' => 'James' } }
     post "/api/donor", json
     last_response.status.should == 201
-    JSON.parse(last_response.body).should == json
+    response = JSON.parse last_response.body
+    response.except('_id').should == json['donor']
   end
 
 end

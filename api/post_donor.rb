@@ -4,10 +4,8 @@ module Lpa
     desc "Creates a donor."
     resource :donor do
       post do
-        {
-          title: params[:title],
-          first_name: params[:first_name]
-        }
+        donor = Donor.create(params['donor'])
+        present donor, with: Donor::Entity
       end
     end
   end
