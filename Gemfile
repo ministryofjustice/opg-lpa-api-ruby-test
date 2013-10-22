@@ -6,6 +6,7 @@ gem 'mongoid', '~> 4.0.0', github: 'mongoid/mongoid'
 
 gem 'rack'
 gem 'grape'
+gem 'grape-entity'
 gem 'grape-swagger'
 gem 'json'
 
