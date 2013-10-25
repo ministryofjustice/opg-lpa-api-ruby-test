@@ -2,7 +2,9 @@ class Address
   include Mongoid::Document
   include Grape::Entity::DSL
 
-  field :address_lines, type: Array
+  field :address_line1, type: String
+  field :address_line2, type: String
+  field :address_line3, type: String
   field :town,          type: String
   field :county,        type: String
   field :postcode,      type: String
