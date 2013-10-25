@@ -39,7 +39,7 @@ describe Opg::API do
           'title' => 'Mr',
           'first_name' => 'James',
           'last_name' => 'Bond',
-          'address' => { 'postcode' => 'N1' }
+          'address' => { 'post_code' => 'N1' }
         }
       }
       post '/api/lpas', json
