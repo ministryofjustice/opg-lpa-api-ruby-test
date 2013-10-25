@@ -27,7 +27,7 @@ task :environment do
 end
 
 task :routes => :environment do
-  Lpa::API.routes.each do |route|
+  Opg::API.routes.each do |route|
     options = route.instance_values['options']
     puts [options[:method], options[:path], options[:description]].join("    ")
   end

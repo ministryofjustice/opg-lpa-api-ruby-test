@@ -1,4 +1,4 @@
-module Lpa
+module Opg
   class PostDonor < Grape::API
     format :json
     desc "Creates a donor."

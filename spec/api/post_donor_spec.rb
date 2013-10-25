@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Lpa::API do
+describe Opg::API do
   include Rack::Test::Methods
 
   def app
-    Lpa::API
+    Opg::API
   end
 
   describe 'POST donor with missing field' do
