@@ -7,8 +7,8 @@ class Donor
   field :middle_names, type: String
   field :last_name,    type: String
 
-  validates :first_name, presence: true
-  validates :last_name,  presence: true
+  validates :first_name, presence: true, length: { minimum: 2 }
+  validates :last_name,  presence: true, length: { minimum: 2 }
 
   embeds_one :address, as: :addressable
 
