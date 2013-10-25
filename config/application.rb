@@ -4,10 +4,17 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'boot'
 
+puts "==== env: #{ENV['RACK_ENV']}"
+
 Bundler.require :default, ENV['RACK_ENV']
 
-Dir[File.expand_path('../../api/*.rb', __FILE__)].each do |f|
-  require f
+Mongoid.load!( File.dirname(__FILE__) + "/../config/mongoid.yml")
+
+['app/models', 'api'].each do |dir|
+  Dir[File.expand_path("../../#{dir}/*.rb", __FILE__)].each do |f|
+    puts "require #{f}"
+    require f
+  end
 end
 
 require 'api'
