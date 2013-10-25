@@ -17,6 +17,6 @@ class Attorney
       expose field, :if => lambda { |object, options| object.send(field) }
     end
 
-    # expose :address, :using => Address::Entity, :if => lambda { |object, options| object.address }
+    expose :address, :using => Address::Entity, :if => lambda { |object, options| object.address }
   end
 end
