@@ -15,9 +15,6 @@ group :development, :test do
   gem 'rerun'
   gem 'rspec'
   gem 'pry-byebug'
-  gem 'activeresource', '~> 4.0.0'
-  gem 'remi-rackbox'
-  gem 'active_racksource', github: 'robmckinnon/active_racksource'
 end
 
 group :development do
