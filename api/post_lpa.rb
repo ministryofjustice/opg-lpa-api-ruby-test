@@ -9,9 +9,7 @@ module Opg
         lpa.errors.messages.each do |name, message_list|
           if message_list.include?('is invalid') && (child = lpa.send(name.to_sym))
             if child.is_a? Array
-              child.each_with_index do |c, i|
-                messages["#{name}_#{i}"] = c.errors.messages
-              end
+              messages[name] = child.collect {|e| e.errors.messages}
             else
               messages[name] = child.errors.messages
             end
