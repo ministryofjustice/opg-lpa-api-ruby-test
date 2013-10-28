@@ -1,16 +1,12 @@
-require_relative 'person_name'
+require_relative 'personal_details'
 
 class Donor
   include Mongoid::Document
   include Grape::Entity::DSL
 
-  include PersonName
-
-  embeds_one :address, as: :addressable
+  include PersonalDetails
 
   entity do
     expose :_id
-
-    expose :address, :using => Address::Entity, :if => lambda { |object, options| object.address }
   end
 end
