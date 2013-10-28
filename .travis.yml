@@ -3,5 +3,4 @@ rvm:
   - "2.0.0"
 services: mongodb
 script: bundle exec rspec spec
-notifications:
-  hipchat: b4Gita3odsaRvUoOSU4bQQbD4bzrMyaC9ki15eEq@The LPA Dark Horse Team
+
