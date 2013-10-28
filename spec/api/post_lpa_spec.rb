@@ -31,6 +31,36 @@ describe Opg::API do
     end
   end
 
+  describe 'POST lpa including an attorney with blank field' do
+    it "should return 422 error" do
+      json = { 'type' => 'health', 'attorneys' => [{ 'title' => 'Mr', 'first_name' => 'James', 'last_name' => '' }] }
+      post '/api/lpas', json
+      last_response.status.should == 422
+      response = JSON.parse last_response.body
+      response.should == {"errors"=>{"attorneys"=> [{"last_name"=>["can't be blank", "is too short (minimum is 2 characters)"]}]} }
+    end
+  end
+
+  describe "POST lpa including an attorney with title, name, and address postcode" do
+    it 'should return 200 with JSON' do
+      json = {
+        'type' => 'health',
+        'attorneys' => [{
+          'title' => 'Mr',
+          'first_name' => 'James',
+          'last_name' => 'Bond',
+          'address' => { 'post_code' => 'N1' }
+        }]
+      }
+      post '/api/lpas', json
+      last_response.status.should == 201
+      response = JSON.parse last_response.body
+      response['attorneys'].first.delete('_id')
+      response.except('_id').should == json
+      response['_id'].should_not be_nil
+    end
+  end
+
   describe "POST lpa including donor title, name, and address postcode" do
     it 'should return 200 with JSON' do
       json = {
@@ -48,21 +78,6 @@ describe Opg::API do
       response['donor'].delete('_id')
       response.except('_id').should == json.merge("attorneys"=>[])
       response['_id'].should_not be_nil
-    end
-  end
-
-  describe "POST lpa including a attorney missing fields" do
-    it 'should return 422 with errors' do
-      json = {
-        'type' => 'health',
-        'attorneys' => [{
-          'address' => { 'post_code' => 'N1' }
-        }]
-      }
-      post '/api/lpas', json
-      last_response.status.should == 422
-      response = JSON.parse last_response.body
-      response.should == {"errors" => {"attorneys_0"=>{"first_name"=>["can't be blank", "is too short (minimum is 2 characters)"], "last_name"=>["can't be blank", "is too short (minimum is 2 characters)"]}}}
     end
   end
 
