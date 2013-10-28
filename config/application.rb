@@ -11,7 +11,7 @@ Bundler.require :default, ENV['RACK_ENV']
 Mongoid.load!( File.dirname(__FILE__) + "/../config/mongoid.yml")
 
 ['app/models', 'api'].each do |dir|
-  Dir[File.expand_path("../../#{dir}/*.rb", __FILE__)].each do |f|
+  Dir[File.expand_path("../../#{dir}/*.rb", __FILE__)].sort.each do |f|
     puts "require #{f}"
     require f
   end
