@@ -49,11 +49,3 @@ RSpec.configure do |config|
 
 end
 
-
-require 'capybara/rspec'
-Capybara.configure do |config|
-  ENV['TEST_PORT'] ||= '9293'
-  config.app = Opg::App.new
-  config.server_port = Integer(ENV['TEST_PORT'])
-end
-
