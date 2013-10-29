@@ -28,6 +28,10 @@ ENV["RACK_ENV"] ||= 'test'
 
 require 'rack/test'
 
+# Coveralls for code coverage on Travis builds
+require 'coveralls'
+Coveralls.wear!
+
 require File.expand_path("../../config/environment", __FILE__)
 
 RSpec.configure do |config|
