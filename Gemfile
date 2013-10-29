@@ -25,5 +25,6 @@ group :test do
   gem 'rack-test'
   gem 'guard-rspec'
   gem 'database_cleaner'
+  gem 'coveralls', require: false
 end
 
