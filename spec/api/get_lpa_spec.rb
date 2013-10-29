@@ -35,4 +35,11 @@ describe Opg::API do
     end
   end
 
+  describe "GET lpa with invalid id" do
+    it 'should return 404' do
+      get "/api/lpas/xxyyzz"
+      last_response.status.should == 404
+      last_response.body.should == '{"error":"Document(s) not found for class Lpa with id(s) xxyyzz."}'
+    end
+  end
 end
