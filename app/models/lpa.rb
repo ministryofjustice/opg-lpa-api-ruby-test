@@ -7,7 +7,7 @@ class Lpa
   embeds_one :donor
   embeds_many :attorneys
 
-  validates :type, presence: true, length: { minimum: 2 }
+  validates :type, presence: false, length: { minimum: 2, allow_blank: true }
 
   entity do
     [ :_id, :type ].each do |field|
