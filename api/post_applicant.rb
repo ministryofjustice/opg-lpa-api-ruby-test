@@ -2,18 +2,17 @@ require_relative 'post_helpers'
 require_relative 'error_helpers'
 
 module Opg
-
-  class PostLpa < Grape::API
+  class PostApplicant < Grape::API
     format :json
 
     helpers Opg::PostHelpers
     helpers Opg::ErrorHelpers
 
-    resource :lpas do
+    resource :applicants do
 
-      desc "Creates an LPA application."
+      desc "Creates an LPA applicant."
       post do
-        handle_post { |attributes| Lpa.create(attributes) }
+        handle_post { |attributes| Applicant.create(attributes) }
       end
 
     end

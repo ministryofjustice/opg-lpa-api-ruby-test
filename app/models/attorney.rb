@@ -5,8 +5,4 @@ class Attorney
   include Grape::Entity::DSL
 
   include PersonalDetails
-
-  entity do
-    expose :_id
-  end
 end

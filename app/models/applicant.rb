@@ -6,7 +6,13 @@ class Applicant
 
   include PersonalDetails
 
+  has_many :lpas
+
+  def id
+    _id.to_s
+  end
+
   entity do
-    expose :_id
+    expose :id
   end
 end

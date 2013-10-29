@@ -28,9 +28,11 @@ ENV["RACK_ENV"] ||= 'test'
 
 require 'rack/test'
 
-# Coveralls for code coverage on Travis builds
-require 'coveralls'
-Coveralls.wear!
+unless ENV['HOME'].to_s[/\/Users/]
+  # Coveralls for code coverage on Travis builds
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 require File.expand_path("../../config/environment", __FILE__)
 
