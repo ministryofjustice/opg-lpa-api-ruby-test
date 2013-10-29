@@ -38,12 +38,12 @@ describe Opg::API do
       post '/api/applicants', json
       last_response.status.should == 201
       response = JSON.parse last_response.body
-      response.except('_id').should == json
-      response['_id'].should_not be_nil
+      response.except('id').should == json
+      response['id'].should_not be_nil
     end
   end
 
-  describe 'POST lpa including donor with unknown field' do
+  describe 'POST applicant with unknown field' do
     it 'should return 422 error' do
       json = { 'first' => 'x' }
       post '/api/applicants', json
@@ -52,6 +52,5 @@ describe Opg::API do
       response.should == {"errors" => {"unknown_attribute"=>["Attempted to set a value for 'first' which is not allowed on the model Applicant."]}}
     end
   end
-
 
 end

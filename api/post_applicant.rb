@@ -8,11 +8,13 @@ module Opg
     helpers Opg::PostHelpers
     helpers Opg::ErrorHelpers
 
-    desc "Creates an LPA applicant."
     resource :applicants do
+
+      desc "Creates an LPA applicant."
       post do
         handle_post { |attributes| Applicant.create(attributes) }
       end
+
     end
   end
 
