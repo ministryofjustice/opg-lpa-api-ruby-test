@@ -3,6 +3,7 @@ require_relative 'personal_details'
 
 class Applicant
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Grape::Entity::DSL
 
   include Identifier
