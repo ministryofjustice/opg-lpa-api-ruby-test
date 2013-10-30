@@ -7,6 +7,7 @@ notifications:
   hipchat:
     rooms:
       secure: VvOqjw4G+f9j8yE8HbVbG+O8ebYaDHcknKifPtIwhEnYE9PnlyhpmTsnFv+qAIeCidB/VfjALrX9Mk/oYPTTMengR/q7JtgcmEFnRD2Qy/WFbESLN4XtL8AMIEJoAfRSvK3iZvquV0DdrawL27ymr2N9iN6EGWuqlMG+2MON9mY=
+    format: html
     template:
-      - '%{repository} %{branch}: %{message} [build](%{build_url}) [compare](%{compare_url})'
+      - '%{repository}(<a href="%{compare_url}">%{branch}</a>): %{message} (<a href="%{build_url}">details</a>)'
 
