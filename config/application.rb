@@ -13,7 +13,7 @@ Mongoid.load!( File.dirname(__FILE__) + "/../config/mongoid.yml")
 
 ['app/models', 'api'].each do |dir|
   Dir[File.expand_path("../../#{dir}/*.rb", __FILE__)].sort.each do |f|
-    puts "require #{f}"
+    puts "require #{f}" unless ENV['RACK_ENV'] == 'test'
     require f
   end
 end
