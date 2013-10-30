@@ -8,5 +8,5 @@ notifications:
     rooms:
       secure: VvOqjw4G+f9j8yE8HbVbG+O8ebYaDHcknKifPtIwhEnYE9PnlyhpmTsnFv+qAIeCidB/VfjALrX9Mk/oYPTTMengR/q7JtgcmEFnRD2Qy/WFbESLN4XtL8AMIEJoAfRSvK3iZvquV0DdrawL27ymr2N9iN6EGWuqlMG+2MON9mY=
     template:
-      - '%{repository} %{branch}: %{message} <a href="%{build_url}">build</a> <a href="%{compare_url}">compare</a>'
+      - '%{repository} %{branch}: %{message} [build](%{build_url}) [compare](%{compare_url})'
 
