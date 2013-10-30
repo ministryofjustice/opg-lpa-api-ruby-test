@@ -6,6 +6,7 @@ class Lpa
 
   field :type, type: String
   field :when_to_use, type: String
+  field :life_sustaining_treatment, type: String
 
   belongs_to :applicant
 
@@ -15,6 +16,7 @@ class Lpa
 
   validates :type, presence: false, length: { minimum: 2, allow_blank: true }
   validates :when_to_use, presence: false, length: { minimum: 2, allow_blank: true }
+  validates :life_sustaining_treatment, presence: false, length: { minimum: 2, allow_blank: true }
   validates :applicant, presence: true
 
   include Identifier
