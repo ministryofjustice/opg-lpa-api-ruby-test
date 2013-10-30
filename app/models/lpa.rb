@@ -23,7 +23,7 @@ class Lpa
 
   entity do
     expose :type, if: lambda { |object, options| object.type }
-    expose :when_to_use, if: lambda { |object, options| object.type }
+    expose :when_to_use, if: lambda { |object, options| object.when_to_use }
 
     expose :applicant, using: Applicant::Entity, if: lambda { |object, options| object.applicant }
     expose :donor,     using: Donor::Entity,     if: lambda { |object, options| object.donor }
