@@ -15,15 +15,20 @@ module Opg
           requires :id, type: String, desc: "LPA application ID."
         end
         put do
+          attributes = params.except('route_info','format')
+          def attributes.permitted?; true; end
+
           begin
             lpa = Lpa.find(params[:id])
 
-            attributes = params.except('route_info','format')
-            def attributes.permitted?; true; end
+            lpa.update_attributes(attributes)
 
-            lpa.update_attributes!(attributes)
+            if lpa.valid?
+              present lpa, with: Lpa::Entity
+            else
+              unprocessable_entity_error! error_messages(lpa)
+            end
 
-            present lpa, with: Lpa::Entity
           rescue Mongoid::Errors::DocumentNotFound => e
             error!(mongoid_exception_message(e), 404)
           end

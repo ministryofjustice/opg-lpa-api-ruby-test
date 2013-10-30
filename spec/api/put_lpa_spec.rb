@@ -37,4 +37,14 @@ describe Opg::API do
     end
   end
 
+  describe "PUT lpa with donor field blank" do
+    it 'should return JSON' do
+      json = { 'donor' => person_json.merge('last_name' => '') }
+      put "/api/lpas/#{lpa_id}", json
+      puts last_response.body
+      response = JSON.parse last_response.body
+      response.should == {"errors"=>{"donor"=> {"last_name"=>["can't be blank", "is too short (minimum is 2 characters)"]}} }
+    end
+  end
+
 end
