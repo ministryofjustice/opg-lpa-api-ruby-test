@@ -18,5 +18,8 @@ module PersonName
   end
 
   module InstanceMethods
+    def full_name
+      [first_name, middle_names, last_name].compact.join(' ')
+    end
   end
 end

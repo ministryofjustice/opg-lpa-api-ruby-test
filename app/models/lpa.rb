@@ -2,6 +2,7 @@ require_relative 'identifier'
 
 class Lpa
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Grape::Entity::DSL
 
   field :type, type: String
