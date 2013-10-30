@@ -17,9 +17,12 @@ module Opg
       messages
     end
 
+    def mongoid_exception_message e
+      e.to_s.split('Summary:').first.sub('Problem:','').strip
+    end
+
     def unknown_attribute_message e
-      message = e.to_s.split('Summary:').first.sub('Problem:','').strip
-      {unknown_attribute: [message]}
+      {unknown_attribute: [mongoid_exception_message(e)]}
     end
 
     def unprocessable_entity_error! messages

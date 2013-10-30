@@ -35,10 +35,11 @@ describe Opg::API do
         'last_name' => 'Bond',
         'address' => { 'post_code' => 'N1' }
       }
+
       post '/api/applicants', json
       last_response.status.should == 201
       response = JSON.parse last_response.body
-      response.except('id').should == json
+      response.except('id').should == json.merge("uri" => "http://example.org/api/applicants/#{response['id']}.json")
       response['id'].should_not be_nil
     end
   end

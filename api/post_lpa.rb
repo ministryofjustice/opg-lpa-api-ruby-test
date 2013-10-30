@@ -11,7 +11,7 @@ module Opg
 
     resource :lpas do
 
-      desc "Creates an LPA application."
+      desc "Creates a LPA application."
       post do
         handle_post { |attributes| Lpa.create(attributes) }
       end

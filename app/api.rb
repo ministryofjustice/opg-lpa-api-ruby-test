@@ -4,6 +4,8 @@ module Opg
     format :json
     mount ::Opg::PostApplicant
     mount ::Opg::PostLpa
+    mount ::Opg::GetLpa
+    mount ::Opg::PutLpa
     add_swagger_documentation api_version: 'v1'
   end
 end
