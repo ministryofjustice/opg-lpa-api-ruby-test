@@ -19,6 +19,7 @@ describe Opg::API do
       response = JSON.parse last_response.body
       response['id'].should == applicant_id
       puts "response: " + last_response.body
+      updated_at = response['lpas'].first.delete('updated_at')
       response['lpas'].should == [
         {
           "id"=>lpa_id,
@@ -27,6 +28,7 @@ describe Opg::API do
           "type"=>"health"
         }
       ]
+      updated_at.should_not be_nil
       puts response
     end
   end

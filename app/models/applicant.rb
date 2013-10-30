@@ -23,6 +23,7 @@ class LpaListItem < Grape::Entity
   expose :uri
   expose :donor, using: LpaListDonor
   expose :type
+  expose :updated_at
 end
 
 class ApplicantWithLpas < Applicant::Entity
