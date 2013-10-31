@@ -14,6 +14,7 @@ class Lpa
   embeds_one :donor
 
   embeds_many :attorneys
+  embeds_many :replacement_attorneys, :class_name => 'Attorney'
 
   validates :type, presence: false, length: { minimum: 2, allow_blank: true }
   validates :when_to_use, presence: false, length: { minimum: 2, allow_blank: true }
@@ -29,5 +30,6 @@ class Lpa
     expose :applicant, using: Applicant::Entity, if: lambda { |object, options| object.applicant }
     expose :donor,     using: Donor::Entity,     if: lambda { |object, options| object.donor }
     expose :attorneys, using: Attorney::Entity,  if: lambda { |object, options| object.attorneys }
+    expose :replacement_attorneys, using: Attorney::Entity,  if: lambda { |object, options| object.replacement_attorneys }
   end
 end
