@@ -1,6 +1,6 @@
 require_relative 'personal_details'
 
-class Attorney
+class CertificateProvider
   include Mongoid::Document
   include Grape::Entity::DSL
 

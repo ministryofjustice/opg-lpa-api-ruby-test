@@ -75,11 +75,12 @@ describe Opg::API do
     end
   end
 
-  describe "POST lpa including donor title, name, and address postcode" do
+  describe "POST lpa including donor and certificate provider with title, name, and address postcode" do
     it 'should return 200 with JSON' do
       json = {
         'applicant_id' => applicant_id, 'type' => 'health',
-        'donor' => person_json
+        'donor' => person_json,
+        'certificate_provider' => person_json
       }
       post '/api/lpas', json
       last_response.status.should == 201
