@@ -5,4 +5,6 @@ class Donor
   include Grape::Entity::DSL
 
   include PersonalDetails
+
+  embedded_in :lpa
 end

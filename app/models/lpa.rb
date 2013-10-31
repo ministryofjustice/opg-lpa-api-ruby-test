@@ -1,3 +1,4 @@
+require 'active_support/core_ext/string/inflections'
 require_relative 'identifier'
 
 class Lpa
@@ -14,6 +15,7 @@ class Lpa
   belongs_to :applicant
 
   embeds_one :donor
+  embeds_one :certificate_provider
 
   embeds_many :attorneys
   embeds_many :replacement_attorneys, :class_name => 'Attorney'
@@ -26,14 +28,24 @@ class Lpa
   include Identifier
 
   entity do
-    expose :type, if: lambda { |object, options| object.type }
-    expose :when_to_use, if: lambda { |object, options| object.when_to_use }
-    expose :how_attorneys_act, if: lambda { |object, options| object.how_attorneys_act }
-    expose :how_attorneys_act_details, if: lambda { |object, options| object.how_attorneys_act_details }
+    [
+      :type,
+      :when_to_use,
+      :how_attorneys_act,
+      :how_attorneys_act_details
+    ].each do |attribute|
+      expose attribute, if: lambda { |object, options| object.send(attribute) }
+    end
 
-    expose :applicant, using: Applicant::Entity, if: lambda { |object, options| object.applicant }
-    expose :donor,     using: Donor::Entity,     if: lambda { |object, options| object.donor }
-    expose :attorneys, using: Attorney::Entity,  if: lambda { |object, options| object.attorneys }
-    expose :replacement_attorneys, using: Attorney::Entity,  if: lambda { |object, options| object.replacement_attorneys }
+    [
+      :applicant,
+      :donor,
+      :attorneys,
+      :replacement_attorneys,
+      :certificate_provider
+    ].each do |attribute|
+      model = Object.const_get(attribute.to_s.camelize.singularize.sub('Replacement',''))
+      expose attribute, using: model.const_get(:Entity), if: lambda { |object, options| object.send(attribute) }
+    end
   end
 end
