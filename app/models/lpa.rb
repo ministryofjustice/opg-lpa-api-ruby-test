@@ -8,6 +8,8 @@ class Lpa
   field :type, type: String
   field :when_to_use, type: String
   field :life_sustaining_treatment, type: String
+  field :how_attorneys_act, type: String
+  field :how_attorneys_act_details, type: String
 
   belongs_to :applicant
 
@@ -26,6 +28,8 @@ class Lpa
   entity do
     expose :type, if: lambda { |object, options| object.type }
     expose :when_to_use, if: lambda { |object, options| object.when_to_use }
+    expose :how_attorneys_act, if: lambda { |object, options| object.how_attorneys_act }
+    expose :how_attorneys_act_details, if: lambda { |object, options| object.how_attorneys_act_details }
 
     expose :applicant, using: Applicant::Entity, if: lambda { |object, options| object.applicant }
     expose :donor,     using: Donor::Entity,     if: lambda { |object, options| object.donor }
