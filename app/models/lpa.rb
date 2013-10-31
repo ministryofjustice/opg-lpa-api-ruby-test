@@ -29,6 +29,6 @@ class Lpa
     expose :applicant, using: Applicant::Entity, if: lambda { |object, options| object.applicant }
     expose :donor,     using: Donor::Entity,     if: lambda { |object, options| object.donor }
     expose :attorneys, using: Attorney::Entity,  if: lambda { |object, options| object.attorneys }
-    expose :replacement_attorneys, using: Attorney::Entity,  if: lambda { |object, options| object.attorneys }
+    expose :replacement_attorneys, using: Attorney::Entity,  if: lambda { |object, options| object.replacement_attorneys }
   end
 end
