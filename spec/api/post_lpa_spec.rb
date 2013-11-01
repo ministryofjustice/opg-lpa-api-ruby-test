@@ -68,6 +68,7 @@ describe Opg::API do
       expected_json = json.
         except('applicant_id').
         merge('replacement_attorneys'=>[]).
+        merge('people_to_be_told'=>[]).
         merge('applicant' => person_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json") ).
         merge('uri' => "http://example.org/api/lpas/#{id}.json")
 
@@ -90,6 +91,7 @@ describe Opg::API do
       expected_json = json.
         except('applicant_id').
         merge("attorneys"=>[]).
+        merge('people_to_be_told'=>[]).
         merge('replacement_attorneys'=>[]).
         merge('applicant'=>person_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json")  ).
         merge("uri" => "http://example.org/api/lpas/#{response['id']}.json")
