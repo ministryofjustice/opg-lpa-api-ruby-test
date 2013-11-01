@@ -11,6 +11,10 @@ require 'mongoid'
 
 Mongoid.load!( File.dirname(__FILE__) + "/../config/mongoid.yml")
 
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.irregular("person_to_be_told", "people_to_be_told")
+end
+
 # TODO: Rather nasty as requiring them in alphabetical order doesn't work properly.
 require File.expand_path('app/models/address.rb')
 require File.expand_path('app/models/person_to_be_told.rb')
@@ -23,4 +27,3 @@ end
 
 require 'api'
 require 'lpa_app'
-
