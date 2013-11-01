@@ -32,7 +32,8 @@ class Lpa
       :type,
       :when_to_use,
       :how_attorneys_act,
-      :how_attorneys_act_details
+      :how_attorneys_act_details,
+      :life_sustaining_treatment
     ].each do |attribute|
       expose attribute, if: lambda { |object, options| object.send(attribute) }
     end
