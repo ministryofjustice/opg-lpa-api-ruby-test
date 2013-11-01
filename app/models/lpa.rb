@@ -18,6 +18,7 @@ class Lpa
 
   embeds_one :donor
   embeds_one :certificate_provider
+  embeds_one :person_to_be_told
 
   embeds_many :attorneys
   embeds_many :replacement_attorneys, :class_name => 'Attorney'
@@ -47,7 +48,8 @@ class Lpa
       :donor,
       :attorneys,
       :replacement_attorneys,
-      :certificate_provider
+      :certificate_provider,
+      :person_to_be_told
     ].each do |attribute|
       model = Object.const_get(attribute.to_s.camelize.singularize.sub('Replacement',''))
       expose attribute, using: model.const_get(:Entity), if: lambda { |object, options| object.send(attribute) }

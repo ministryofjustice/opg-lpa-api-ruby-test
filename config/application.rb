@@ -11,6 +11,9 @@ require 'mongoid'
 
 Mongoid.load!( File.dirname(__FILE__) + "/../config/mongoid.yml")
 
+# TODO: Rather nasty as requiring them in alphabetical order doesn't work properly.
+require File.expand_path('app/models/address.rb')
+require File.expand_path('app/models/person_to_be_told.rb')
 ['app/models', 'api'].each do |dir|
   Dir[File.expand_path("../../#{dir}/*.rb", __FILE__)].sort.each do |f|
     puts "require #{f}" unless ENV['RACK_ENV'] == 'test'
