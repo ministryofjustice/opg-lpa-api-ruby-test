@@ -18,6 +18,7 @@ class Lpa
 
   embeds_one :donor
   embeds_one :certificate_provider
+  embeds_one :certificate_provider2, :class_name => 'CertificateProvider'
 
   embeds_many :people_to_be_told
   embeds_many :attorneys
@@ -54,5 +55,6 @@ class Lpa
       model = Object.const_get(attribute.to_s.singularize.camelize.sub('Replacement',''))
       expose attribute, using: model.const_get(:Entity), if: lambda { |object, options| object.send(attribute) }
     end
+    expose :certificate_provider2, using: CertificateProvider::Entity, if: lambda { |object, options| object.send(:certificate_provider2) }
   end
 end
