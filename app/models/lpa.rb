@@ -11,6 +11,8 @@ class Lpa
   field :life_sustaining_treatment, type: String
   field :how_attorneys_act, type: String
   field :how_attorneys_act_details, type: String
+  field :how_replacement_attorneys_act, type: String
+  field :how_replacement_attorneys_act_details, type: String
 
   belongs_to :applicant
 
@@ -33,6 +35,8 @@ class Lpa
       :when_to_use,
       :how_attorneys_act,
       :how_attorneys_act_details,
+      :how_replacement_attorneys_act,
+      :how_replacement_attorneys_act_details,
       :life_sustaining_treatment
     ].each do |attribute|
       expose attribute, if: lambda { |object, options| object.send(attribute) }
