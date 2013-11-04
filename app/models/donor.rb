@@ -23,7 +23,10 @@ class Donor
 
   after_validation do
     if !errors.blank?
-      if errors.keys.include?(:date_of_birth) && errors['date_of_birth'].delete('translation missing: en.mongoid.errors.models.donor.attributes.date_of_birth.invalid_date')
+      if errors.keys.include?(:date_of_birth) && (
+          errors['date_of_birth'].delete('translation missing: en.mongoid.errors.models.donor.attributes.date_of_birth.invalid_date') ||
+          errors['date_of_birth'].delete('translation missing: en.mongoid.errors.models.donor.attributes.date_of_birth.on_or_before')
+        )
         errors['date_of_birth'].delete('is an invalid date')
         errors['date_of_birth'] = 'is an invalid date'
       end
