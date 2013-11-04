@@ -11,6 +11,8 @@ gem 'grape-entity'
 gem 'grape-swagger'
 gem 'json'
 
+gem 'validates_timeliness'
+
 group :development, :test do
   gem 'rerun'
   gem 'rspec'

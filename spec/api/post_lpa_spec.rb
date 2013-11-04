@@ -18,7 +18,7 @@ describe Opg::API do
       response = JSON.parse last_response.body
       response.should == {'errors' =>
         { 'donor' =>
-          { 'date_of_birth'=>["can't be blank"],
+          { 'date_of_birth'=>["can't be blank", "is an invalid date"],
             'last_name'=>["can't be blank", 'is too short (minimum is 2 characters)'] }
         }
       }
