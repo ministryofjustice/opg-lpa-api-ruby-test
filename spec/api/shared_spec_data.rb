@@ -1,4 +1,4 @@
-shared_context "shared LPA setup" do
+shared_context 'shared spec data' do
 
   let(:dob) do
     { 'date_of_birth'=>'1988-10-10' }
@@ -27,4 +27,6 @@ shared_context "shared LPA setup" do
     response = JSON.parse last_response.body
     response['id']
   end
+
 end
+
