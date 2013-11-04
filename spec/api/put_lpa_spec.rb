@@ -14,7 +14,7 @@ describe Opg::API do
     it 'should return JSON' do
       json = { 'type' => 'financial' }
       put "/api/lpas/#{lpa_id}", json
-      puts last_response.body
+
       response = JSON.parse last_response.body
       response['type'].should == 'financial'
     end
@@ -24,7 +24,7 @@ describe Opg::API do
     it 'should return JSON' do
       json = { 'donor' => donor_json.merge('last_name' => '') }
       put "/api/lpas/#{lpa_id}", json
-      puts last_response.body
+
       response = JSON.parse last_response.body
       response.should == {"errors"=>{"donor"=> {"last_name"=>["can't be blank", "is too short (minimum is 2 characters)"]}} }
     end
