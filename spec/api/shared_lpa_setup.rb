@@ -5,7 +5,7 @@ shared_context "shared LPA setup" do
   end
 
   let(:person_json) do
-    { 'title'=> 'Mr', 'first_name'=> 'James', 'last_name'=> 'Bond', 'address' => { 'post_code' => 'N1' } }
+    { 'title'=> 'Mr', 'first_name'=> 'James', 'last_name'=> 'Bond', 'address' => { 'post_code' => 'N1' }, 'email' => '007@example.com' }
   end
 
   let(:applicant_json) do
