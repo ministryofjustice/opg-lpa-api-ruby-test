@@ -1,5 +1,5 @@
 require 'active_support/core_ext/string/inflections'
-require_relative 'identifier'
+require_relative 'uri_identifier'
 
 class Lpa
   include Mongoid::Document
@@ -29,7 +29,9 @@ class Lpa
   validates :life_sustaining_treatment, presence: false, length: { minimum: 2, allow_blank: true }
   validates :applicant, presence: true
 
-  include Identifier
+  accepts_nested_attributes_for :attorneys, allow_destroy: true
+
+  include UriIdentifier
 
   entity do
     [

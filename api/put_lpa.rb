@@ -21,6 +21,10 @@ module Opg
           begin
             lpa = Lpa.find(params[:id])
 
+            if attorneys = attributes.delete('attorneys')
+              lpa.attorneys_attributes = attorneys # deletes if _destroy in hash
+            end
+
             lpa.update_attributes(attributes)
 
             if lpa.valid?

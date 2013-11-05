@@ -1,3 +1,4 @@
+require_relative 'identifier'
 require_relative 'date_of_birth'
 require_relative 'personal_details_with_phone'
 
@@ -5,6 +6,7 @@ class Attorney
   include Mongoid::Document
   include Grape::Entity::DSL
 
+  include Identifier
   include DateOfBirth
   include PersonalDetailsWithPhone
 

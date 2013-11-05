@@ -1,4 +1,4 @@
-require_relative 'identifier'
+require_relative 'uri_identifier'
 require_relative 'date_of_birth'
 require_relative 'personal_details_with_phone'
 
@@ -7,7 +7,7 @@ class Applicant
   include Mongoid::Timestamps
   include Grape::Entity::DSL
 
-  include Identifier
+  include UriIdentifier
   include DateOfBirth
   include PersonalDetailsWithPhone
 
