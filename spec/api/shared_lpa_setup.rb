@@ -12,6 +12,10 @@ shared_context "shared LPA setup" do
     person_json.merge(dob)
   end
 
+  let(:attorney_json) do
+    person_json.merge(dob)
+  end
+
   let(:applicant_id) do
     post '/api/applicants', person_json
     response = JSON.parse last_response.body

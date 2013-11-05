@@ -37,7 +37,7 @@ describe Opg::API do
 
   describe 'POST lpa including an attorney with blank field' do
     it "should return 422 error" do
-      json = { 'applicant_id' => applicant_id, 'type' => 'health', 'attorneys' => [{ 'title' => 'Mr', 'first_name' => 'James', 'last_name' => '' }] }
+      json = { 'applicant_id' => applicant_id, 'type' => 'health', 'attorneys' => [attorney_json.merge('last_name' => '' )] }
       post '/api/lpas', json
       last_response.status.should == 422
       response = JSON.parse last_response.body
@@ -45,11 +45,11 @@ describe Opg::API do
     end
   end
 
-  describe "POST lpa including an attorney with title, name, and address postcode" do
+  describe "POST lpa including an attorney with title, name, dob, and address postcode" do
     it 'should return 200 with JSON' do
       json = {
         'applicant_id' => applicant_id, 'type' => 'health',
-        'attorneys' => [ person_json ]
+        'attorneys' => [ attorney_json ]
       }
       post '/api/lpas', json
       last_response.status.should == 201
