@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_relative 'shared_lpa_setup'
 
 describe Opg::API do
   include Rack::Test::Methods
@@ -7,15 +8,7 @@ describe Opg::API do
     Opg::API
   end
 
-  let(:person_json) do
-    { 'title'=> 'Mr', 'first_name'=> 'James', 'last_name'=> 'Bond', 'address' => { 'post_code' => 'N1' } }
-  end
-
-  let(:applicant_id) do
-    post '/api/applicants', person_json
-    response = JSON.parse last_response.body
-    response['id']
-  end
+  include_context "shared LPA setup"
 
   describe 'POST lpa including donor with missing field' do
     it "should return 422 error" do
@@ -25,7 +18,8 @@ describe Opg::API do
       response = JSON.parse last_response.body
       response.should == {'errors' =>
         { 'donor' =>
-          { 'last_name'=>["can't be blank", 'is too short (minimum is 2 characters)'] }
+          { 'date_of_birth'=>["can't be blank", "is an invalid date"],
+            'last_name'=>["can't be blank", 'is too short (minimum is 2 characters)'] }
         }
       }
     end
@@ -33,7 +27,7 @@ describe Opg::API do
 
   describe 'POST lpa including donor with blank field' do
     it "should return 422 error" do
-      json = { 'applicant_id' => applicant_id, 'type' => 'health', 'donor' => { 'title' => 'Mr', 'first_name' => 'James', 'last_name' => '' } }
+      json = { 'applicant_id' => applicant_id, 'type' => 'health', 'donor' => donor_json.merge('last_name' => '') }
       post '/api/lpas', json
       last_response.status.should == 422
       response = JSON.parse last_response.body
@@ -43,7 +37,7 @@ describe Opg::API do
 
   describe 'POST lpa including an attorney with blank field' do
     it "should return 422 error" do
-      json = { 'applicant_id' => applicant_id, 'type' => 'health', 'attorneys' => [{ 'title' => 'Mr', 'first_name' => 'James', 'last_name' => '' }] }
+      json = { 'applicant_id' => applicant_id, 'type' => 'health', 'attorneys' => [attorney_json.merge('last_name' => '' )] }
       post '/api/lpas', json
       last_response.status.should == 422
       response = JSON.parse last_response.body
@@ -51,11 +45,11 @@ describe Opg::API do
     end
   end
 
-  describe "POST lpa including an attorney with title, name, and address postcode" do
+  describe "POST lpa including an attorney with title, name, dob, and address postcode" do
     it 'should return 200 with JSON' do
       json = {
         'applicant_id' => applicant_id, 'type' => 'health',
-        'attorneys' => [ person_json ]
+        'attorneys' => [ attorney_json ]
       }
       post '/api/lpas', json
       last_response.status.should == 201
@@ -69,7 +63,7 @@ describe Opg::API do
         except('applicant_id').
         merge('replacement_attorneys'=>[]).
         merge('people_to_be_told'=>[]).
-        merge('applicant' => person_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json") ).
+        merge('applicant' => applicant_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json") ).
         merge('uri' => "http://example.org/api/lpas/#{id}.json")
 
       response.except('id').should == expected_json
@@ -80,7 +74,7 @@ describe Opg::API do
     it 'should return 200 with JSON' do
       json = {
         'applicant_id' => applicant_id, 'type' => 'health',
-        'donor' => person_json,
+        'donor' => donor_json,
         'certificate_provider' => person_json
       }
       post '/api/lpas', json
@@ -93,7 +87,7 @@ describe Opg::API do
         merge("attorneys"=>[]).
         merge('people_to_be_told'=>[]).
         merge('replacement_attorneys'=>[]).
-        merge('applicant'=>person_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json")  ).
+        merge('applicant'=> applicant_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json") ).
         merge("uri" => "http://example.org/api/lpas/#{response['id']}.json")
 
       response.except('id').should == expected_json
