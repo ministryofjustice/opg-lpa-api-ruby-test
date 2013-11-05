@@ -1,12 +1,12 @@
 require_relative 'date_of_birth'
-require_relative 'personal_details'
+require_relative 'personal_details_with_phone'
 
 class Donor
   include Mongoid::Document
   include Grape::Entity::DSL
 
   include DateOfBirth
-  include PersonalDetails
+  include PersonalDetailsWithPhone
 
   embedded_in :lpa
 
