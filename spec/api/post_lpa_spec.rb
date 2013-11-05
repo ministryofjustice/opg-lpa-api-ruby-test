@@ -63,7 +63,7 @@ describe Opg::API do
         except('applicant_id').
         merge('replacement_attorneys'=>[]).
         merge('people_to_be_told'=>[]).
-        merge('applicant' => person_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json") ).
+        merge('applicant' => applicant_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json") ).
         merge('uri' => "http://example.org/api/lpas/#{id}.json")
 
       response.except('id').should == expected_json
@@ -87,7 +87,7 @@ describe Opg::API do
         merge("attorneys"=>[]).
         merge('people_to_be_told'=>[]).
         merge('replacement_attorneys'=>[]).
-        merge('applicant'=>person_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json")  ).
+        merge('applicant'=> applicant_json.merge("uri" => "http://example.org/api/applicants/#{applicant_id}.json") ).
         merge("uri" => "http://example.org/api/lpas/#{response['id']}.json")
 
       response.except('id').should == expected_json

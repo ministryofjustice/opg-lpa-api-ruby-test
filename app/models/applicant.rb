@@ -1,4 +1,5 @@
 require_relative 'identifier'
+require_relative 'date_of_birth'
 require_relative 'personal_details'
 
 class Applicant
@@ -7,6 +8,7 @@ class Applicant
   include Grape::Entity::DSL
 
   include Identifier
+  include DateOfBirth
   include PersonalDetails
 
   has_many :lpas

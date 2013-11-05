@@ -1,13 +1,12 @@
 require 'spec_helper'
+require_relative '../api/shared_lpa_setup'
 
 describe Lpa do
 
-  let(:person_json) do
-    { title: 'Mr', first_name: 'James', last_name: 'Bond', 'address' => { 'post_code' => 'N1' } }
-  end
+  include_context "shared LPA setup"
 
   let(:applicant) do
-    applicant = Applicant.new person_json
+    applicant = Applicant.new applicant_json
     applicant.save
     applicant
   end
