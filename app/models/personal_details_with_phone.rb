@@ -6,10 +6,10 @@ module PersonalDetailsWithPhone
   include PersonalDetails
 
   included do
-    field :telephone, type: String
+    field :phone, type: String
 
     entity do
-      expose :telephone, if: ->(object, options) { object.telephone }
+      expose :phone, if: ->(object, options) { object.phone }
     end
   end
 end
