@@ -23,6 +23,8 @@ module Opg
 
             if attorneys = attributes.delete('attorneys')
               lpa.attorneys_attributes = attorneys # deletes if _destroy in hash
+              lpa.save!
+              lpa.update_attributes(attorneys: lpa.attorneys) # hack to ensure deletion occurs
             end
 
             lpa.update_attributes(attributes)

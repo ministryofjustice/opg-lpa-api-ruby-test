@@ -18,11 +18,11 @@ class Lpa
 
   embeds_one :donor
   embeds_one :certificate_provider
-  embeds_one :certificate_provider2, :class_name => 'CertificateProvider'
+  embeds_one :certificate_provider2, class_name: 'CertificateProvider'
 
   embeds_many :people_to_be_told
   embeds_many :attorneys
-  embeds_many :replacement_attorneys, :class_name => 'Attorney'
+  embeds_many :replacement_attorneys, class_name: 'Attorney'
 
   validates :type, presence: false, length: { minimum: 2, allow_blank: true }
   validates :when_to_use, presence: false, length: { minimum: 2, allow_blank: true }

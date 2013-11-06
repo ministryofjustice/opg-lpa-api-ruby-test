@@ -48,10 +48,12 @@ describe Opg::API do
 
     describe 'PUT lpa attorneys array with id and _destroy' do
       it 'should return JSON with attorney removed' do
-        json = { 'attorneys' => [ {'id' => @kirk_attorney_id, '_destroy' => true} ] }
+        json = { 'attorneys' => [ @kirk_attorney_json.merge( '_destroy' => true ) ] }
         put "/api/lpas/#{lpa_id}", json
         response = JSON.parse last_response.body
         response['attorneys'].should == [ @bond_attorney_json ]
+
+        Lpa.find(lpa_id).attorneys.size.should == 1
       end
     end
   end
