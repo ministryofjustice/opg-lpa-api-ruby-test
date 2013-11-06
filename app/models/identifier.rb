@@ -3,12 +3,11 @@ module Identifier
   extend ActiveSupport::Concern
 
   included do
-    def id
-      _id.to_s
-    end
 
     entity do
-      expose :id
+      expose :id do |instance, options|
+        instance.id.to_s
+      end
     end
   end
 end

@@ -21,7 +21,9 @@ class LpaListDonor < Grape::Entity
 end
 
 class LpaListItem < Grape::Entity
-  expose :id
+  expose :id do |instance, options|
+    instance.id.to_s
+  end
   expose :uri
   expose :donor, using: LpaListDonor
   expose :type

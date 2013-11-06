@@ -15,16 +15,14 @@ module Opg
           requires :id, type: String, desc: "LPA application ID."
         end
         put do
-          attributes = params.except('route_info','format')
+          attributes = params.except('route_info','format').to_hash
           def attributes.permitted?; true; end
 
           begin
-            lpa = Lpa.find(params[:id])
+            lpa = Lpa.find(attributes['id'])
 
-            if attorneys = attributes.delete('attorneys')
+            if attributes['attorneys'] && attributes['attorneys'].any?{|x| x.has_key?('_destroy')} && (attorneys = attributes.delete('attorneys'))
               lpa.attorneys_attributes = attorneys # deletes if _destroy in hash
-              lpa.save!
-              lpa.update_attributes(attorneys: lpa.attorneys) # hack to ensure deletion occurs
             end
 
             lpa.update_attributes(attributes)

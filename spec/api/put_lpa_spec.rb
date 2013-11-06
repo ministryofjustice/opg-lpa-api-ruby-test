@@ -35,6 +35,7 @@ describe Opg::API do
       json = { 'attorneys' => [ attorney_json, attorney_json.merge('last_name' => 'Kirk') ] }
       put "/api/lpas/#{lpa_id}", json
       @response = JSON.parse last_response.body
+
       @bond_attorney_id = @response['attorneys'].detect{|x| x['last_name'][/Bond/]}['id']
       @kirk_attorney_id = @response['attorneys'].detect{|x| x['last_name'][/Kirk/]}['id']
 
@@ -43,17 +44,35 @@ describe Opg::API do
     end
 
     it 'should return JSON with attorneys' do
-      @response['attorneys'].should == [ @bond_attorney_json, @kirk_attorney_json ]
+      @response['attorneys'].should include(@bond_attorney_json)
+      @response['attorneys'].should include(@kirk_attorney_json)
     end
 
     describe 'PUT lpa attorneys array with id and _destroy' do
-      it 'should return JSON with attorney removed' do
+      before do
         json = { 'attorneys' => [ @kirk_attorney_json.merge( '_destroy' => true ) ] }
         put "/api/lpas/#{lpa_id}", json
-        response = JSON.parse last_response.body
-        response['attorneys'].should == [ @bond_attorney_json ]
+      end
 
+      it 'should return JSON with attorney removed' do
+        response = JSON.parse last_response.body
         Lpa.find(lpa_id).attorneys.size.should == 1
+        response['attorneys'].should == [ @bond_attorney_json ]
+      end
+
+      describe 'PUT lpa attorneys array with second id and _destroy' do
+        before do
+          json = { 'attorneys' => [ @bond_attorney_json.merge( '_destroy' => true ) ] }
+          put "/api/lpas/#{lpa_id}", json
+        end
+
+        it 'should return JSON with empty attorneys' do
+          response = JSON.parse last_response.body
+          response['attorneys'].should == [ ]
+          response['attorneys'].should be_empty
+
+          Lpa.find(lpa_id).attorneys.size.should == 0
+        end
       end
     end
   end
