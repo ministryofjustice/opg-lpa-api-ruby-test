@@ -18,6 +18,17 @@ module Opg
       attributes
     end
 
+    def self.destroy_attorneys lpa, attributes, attorney_relation
+      if attributes[attorney_relation] && attributes[attorney_relation].any?{|x| x.has_key?('_destroy')}
+        attorneys = attributes.delete(attorney_relation)
+        lpa.send("#{attorney_relation}_attributes=".to_sym, attorneys)
+        lpa.save! # deletes attorney if _destroy in its hash
+        true
+      else
+        false
+      end
+    end
+
     resource :lpas do
 
       route_param :id do
@@ -26,14 +37,13 @@ module Opg
           requires :id, type: String, desc: "LPA application ID."
         end
         put do
+          attributes = PutLpa.clean_attributes params
           begin
-            attributes = PutLpa.clean_attributes params
-            id = attributes.delete('id')
-            lpa = Lpa.find(id)
+            lpa = Lpa.find(attributes['id'])
 
-            if attributes['attorneys'] && attributes['attorneys'].any?{|x| x.has_key?('_destroy')} && (attorneys = attributes.delete('attorneys'))
-              lpa.attorneys_attributes = attorneys
-              lpa.save! # deletes attorney if _destroy in its hash
+            if PutLpa.destroy_attorneys(lpa, attributes, 'attorneys') ||
+                PutLpa.destroy_attorneys(lpa, attributes, 'replacement_attorneys')
+              # done
             else
               lpa.update_attributes(attributes)
             end

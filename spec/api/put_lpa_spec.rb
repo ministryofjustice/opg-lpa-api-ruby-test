@@ -33,7 +33,6 @@ describe Opg::API do
   describe "PUT lpa with attorney field blank and applicant nested hash" do
     before do
       json = lpa_json.except('applicant_id').merge( 'applicant' => applicant_json.merge('id' => applicant_id ) ).merge( 'attorneys' => [ attorney_json.merge('last_name' => '') ] )
-      # binding.pry
       put "/api/lpas/#{lpa_id}", json
       @response = JSON.parse last_response.body
     end

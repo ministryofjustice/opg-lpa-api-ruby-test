@@ -30,6 +30,7 @@ class Lpa
   validates :applicant, presence: true
 
   accepts_nested_attributes_for :attorneys, allow_destroy: true
+  accepts_nested_attributes_for :replacement_attorneys, allow_destroy: true
 
   include UriIdentifier
 
