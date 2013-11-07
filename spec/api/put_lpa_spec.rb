@@ -30,6 +30,19 @@ describe Opg::API do
     end
   end
 
+  describe "PUT lpa with attorney field blank and applicant nested hash" do
+    before do
+      json = lpa_json.except('applicant_id').merge( 'applicant' => applicant_json.merge('id' => applicant_id ) ).merge( 'attorneys' => [ attorney_json.merge('last_name' => '') ] )
+      # binding.pry
+      put "/api/lpas/#{lpa_id}", json
+      @response = JSON.parse last_response.body
+    end
+
+    it 'should return JSON error' do
+      @response.should == {"errors"=>{"attorneys"=> [{"last_name"=>["can't be blank", "is too short (minimum is 2 characters)"]}] } }
+    end
+  end
+
   describe "PUT lpa with attorneys" do
     before do
       json = { 'attorneys' => [ attorney_json, attorney_json.merge('last_name' => 'Kirk') ] }
