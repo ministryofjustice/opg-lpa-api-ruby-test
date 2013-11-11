@@ -10,11 +10,12 @@ module Opg
     def self.clean_attributes params
       attributes = params.except('route_info','format','uri').to_hash
       def attributes.permitted?; true; end
+
       if attributes['applicant']
         applicant = attributes.delete('applicant')
         attributes['applicant_id'] = applicant['id']
       end
-      puts attributes
+
       attributes
     end
 
