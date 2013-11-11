@@ -1,6 +1,6 @@
 require_relative 'identifier'
 require_relative 'date_of_birth'
-require_relative 'personal_details'
+require_relative 'personal_details_with_phone'
 
 class Applicant
   include Mongoid::Document
@@ -9,7 +9,7 @@ class Applicant
 
   include Identifier
   include DateOfBirth
-  include PersonalDetails
+  include PersonalDetailsWithPhone
 
   has_many :lpas
 end

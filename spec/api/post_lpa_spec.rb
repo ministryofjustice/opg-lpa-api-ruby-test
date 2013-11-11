@@ -75,7 +75,7 @@ describe Opg::API do
       json = {
         'applicant_id' => applicant_id, 'type' => 'health',
         'donor' => donor_json,
-        'certificate_provider' => person_json
+        'certificate_provider' => person_json.except('phone')
       }
       post '/api/lpas', json
       last_response.status.should == 201
