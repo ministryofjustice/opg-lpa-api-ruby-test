@@ -5,7 +5,7 @@ ruby '2.0.0'
 
 gem 'rack'
 
-gem 'mongoid', '~> 4.0.0', github: 'mongoid/mongoid'
+gem 'mongoid', '~> 4.0.0', github: 'mongoid/mongoid', ref: 'df4580b'
 
 gem 'grape'
 gem 'grape-entity'
