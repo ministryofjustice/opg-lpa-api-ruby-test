@@ -14,6 +14,8 @@ gem 'json'
 
 gem 'validates_timeliness'
 
+gem 'foreman'
+
 group :development, :test do
   gem 'rerun'
   gem 'rspec'
