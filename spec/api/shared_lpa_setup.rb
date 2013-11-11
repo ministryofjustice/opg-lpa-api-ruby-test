@@ -26,12 +26,15 @@ shared_context "shared LPA setup" do
     response['id']
   end
 
-  let(:lpa_id) do
+  let(:lpa_json) do
     json = {
       'applicant_id' => applicant_id, 'type' => 'health',
       'donor' => donor_json
     }
-    post '/api/lpas', json
+  end
+
+  let(:lpa_id) do
+    post '/api/lpas', lpa_json
     response = JSON.parse last_response.body
     response['id']
   end

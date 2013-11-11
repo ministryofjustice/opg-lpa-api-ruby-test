@@ -3,9 +3,10 @@ source 'http://gems.github.com'
 
 ruby '2.0.0'
 
-gem 'mongoid', '~> 4.0.0', github: 'mongoid/mongoid'
-
 gem 'rack'
+
+gem 'mongoid', '~> 4.0.0', github: 'mongoid/mongoid', ref: 'df4580b'
+
 gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'

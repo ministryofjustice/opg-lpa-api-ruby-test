@@ -7,6 +7,29 @@ module Opg
 
     helpers Opg::ErrorHelpers
 
+    def self.clean_attributes params
+      attributes = params.except('route_info','format','uri').to_hash
+      def attributes.permitted?; true; end
+
+      if attributes['applicant']
+        applicant = attributes.delete('applicant')
+        attributes['applicant_id'] = applicant['id']
+      end
+
+      attributes
+    end
+
+    def self.destroy_attorneys lpa, attributes, attorney_relation
+      if attributes[attorney_relation] && attributes[attorney_relation].any?{|x| x.has_key?('_destroy')}
+        attorneys = attributes.delete(attorney_relation)
+        lpa.send("#{attorney_relation}_attributes=".to_sym, attorneys)
+        lpa.save! # deletes attorney if _destroy in its hash
+        true
+      else
+        false
+      end
+    end
+
     resource :lpas do
 
       route_param :id do
@@ -15,13 +38,16 @@ module Opg
           requires :id, type: String, desc: "LPA application ID."
         end
         put do
-          attributes = params.except('route_info','format')
-          def attributes.permitted?; true; end
-
+          attributes = PutLpa.clean_attributes params
           begin
-            lpa = Lpa.find(params[:id])
+            lpa = Lpa.find(attributes['id'])
 
-            lpa.update_attributes(attributes)
+            if PutLpa.destroy_attorneys(lpa, attributes, 'attorneys') ||
+                PutLpa.destroy_attorneys(lpa, attributes, 'replacement_attorneys')
+              # done
+            else
+              lpa.update_attributes(attributes)
+            end
 
             if lpa.valid?
               present lpa, with: Lpa::Entity

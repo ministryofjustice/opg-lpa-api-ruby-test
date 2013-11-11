@@ -1,5 +1,5 @@
 require 'active_support/core_ext/string/inflections'
-require_relative 'identifier'
+require_relative 'uri_identifier'
 
 class Lpa
   include Mongoid::Document
@@ -18,18 +18,21 @@ class Lpa
 
   embeds_one :donor
   embeds_one :certificate_provider
-  embeds_one :certificate_provider2, :class_name => 'CertificateProvider'
+  embeds_one :certificate_provider2, class_name: 'CertificateProvider'
 
   embeds_many :people_to_be_told
   embeds_many :attorneys
-  embeds_many :replacement_attorneys, :class_name => 'Attorney'
+  embeds_many :replacement_attorneys, class_name: 'Attorney'
 
   validates :type, presence: false, length: { minimum: 2, allow_blank: true }
   validates :when_to_use, presence: false, length: { minimum: 2, allow_blank: true }
   validates :life_sustaining_treatment, presence: false, length: { minimum: 2, allow_blank: true }
   validates :applicant, presence: true
 
-  include Identifier
+  accepts_nested_attributes_for :attorneys, allow_destroy: true
+  accepts_nested_attributes_for :replacement_attorneys, allow_destroy: true
+
+  include UriIdentifier
 
   entity do
     [
