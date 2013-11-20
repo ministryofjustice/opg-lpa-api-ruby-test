@@ -7,6 +7,8 @@ require 'boot'
 puts "==== env: #{ENV['RACK_ENV']}"
 
 Bundler.require :default, ENV['RACK_ENV']
+
+require 'rack_moj_auth'
 require 'mongoid'
 
 Mongoid.load!( File.dirname(__FILE__) + "/../config/mongoid.yml")
