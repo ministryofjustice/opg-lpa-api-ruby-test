@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/ministryofjustice/x-moj-auth.git
+  revision: 9a9a02fec122a7f6a3b6a1a09c73dea44bb0e444
+  specs:
+    rack_moj_auth (0.0.1)
+      httparty (>= 0.12.0)
+      rack (>= 1.5.0)
+
+GIT
   remote: git://github.com/mongoid/mongoid.git
   revision: df4580b84e173081cd2c51de989722e2aa0b56a5
   ref: df4580b
@@ -80,6 +88,9 @@ GEM
       guard (>= 1.8)
       rspec (~> 2.13)
     hashie (2.0.5)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.5)
     ice_nine (0.10.0)
     json (1.8.1)
@@ -168,6 +179,7 @@ DEPENDENCIES
   pry-byebug
   rack
   rack-test
+  rack_moj_auth!
   rake
   rerun
   rspec

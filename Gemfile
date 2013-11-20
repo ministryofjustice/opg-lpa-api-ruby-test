@@ -16,6 +16,8 @@ gem 'validates_timeliness'
 
 gem 'foreman'
 
+gem 'rack_moj_auth', github: 'ministryofjustice/x-moj-auth'
+
 group :development, :test do
   gem 'rerun'
   gem 'rspec'
