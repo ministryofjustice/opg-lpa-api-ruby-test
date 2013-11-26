@@ -15,7 +15,7 @@ gem 'validates_timeliness'
 
 gem 'foreman'
 
-gem 'rack_moj_auth', github: 'ministryofjustice/x-moj-auth', branch: 'master'
+gem 'rack_moj_auth', github: 'ministryofjustice/x-moj-auth', branch: 'token_name_change'
 
 group :development, :test do
   gem 'rerun'

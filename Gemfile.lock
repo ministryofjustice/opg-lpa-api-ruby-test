@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/ministryofjustice/x-moj-auth.git
-  revision: 1f291d110f5af3a2887811cdebbf60ef36196253
-  branch: master
+  revision: 1d089aaaa8fcfa8c7e90fd14cba59f6dcce1ffb0
+  branch: token_name_change
   specs:
     rack_moj_auth (0.0.2)
       httparty (>= 0.12.0)
