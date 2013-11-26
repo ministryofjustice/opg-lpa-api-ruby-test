@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source 'http://gems.github.com'
 
 ruby '2.0.0'
 
@@ -16,12 +15,13 @@ gem 'validates_timeliness'
 
 gem 'foreman'
 
-gem 'rack_moj_auth', github: 'ministryofjustice/x-moj-auth'
+gem 'rack_moj_auth', github: 'ministryofjustice/x-moj-auth', branch: 'master'
 
 group :development, :test do
   gem 'rerun'
   gem 'rspec'
   gem 'pry-byebug'
+  gem 'clogger' # Rack middleware for logging HTTP requests
 end
 
 group :development do
