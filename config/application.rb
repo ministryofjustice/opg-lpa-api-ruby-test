@@ -4,9 +4,11 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'boot'
 
-puts "==== env: #{ENV['RACK_ENV']}"
+puts "==== RACK_ENV: #{ENV['RACK_ENV']}"
 
 Bundler.require :default, ENV['RACK_ENV']
+
+require 'rack_moj_auth'
 require 'mongoid'
 
 Mongoid.load!( File.dirname(__FILE__) + "/../config/mongoid.yml")
@@ -20,7 +22,6 @@ require File.expand_path('app/models/address.rb')
 require File.expand_path('app/models/person_to_be_told.rb')
 ['app/models', 'api'].each do |dir|
   Dir[File.expand_path("../../#{dir}/*.rb", __FILE__)].sort.each do |f|
-    puts "require #{f}" unless ENV['RACK_ENV'] == 'test'
     require f
   end
 end

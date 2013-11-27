@@ -1,12 +1,7 @@
 require 'spec_helper'
 require_relative 'shared_lpa_setup'
 
-describe Opg::API do
-  include Rack::Test::Methods
-
-  def app
-    Opg::API
-  end
+describe Opg::API, :type => :api do
 
   include_context "shared LPA setup"
 

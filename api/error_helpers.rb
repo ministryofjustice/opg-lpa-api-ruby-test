@@ -1,10 +1,10 @@
 module Opg
   module ErrorHelpers
-    def error_messages lpa
+    def error_messages resource
       messages = {}
 
-      lpa.errors.messages.each do |name, message_list|
-        if message_list.include?('is invalid') && (child = lpa.send(name.to_sym))
+      resource.errors.messages.each do |name, message_list|
+        if message_list.include?('is invalid') && (child = resource.send(name.to_sym))
           if child.is_a? Array
             messages[name] = child.collect {|e| e.errors.messages}
           else
