@@ -1,1 +1,1 @@
-api: bundle exec rackup -p 9393
+api: bundle exec rackup -p $PORT
