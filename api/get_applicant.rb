@@ -49,10 +49,10 @@ NOTE
             if applicant.email == user_id
               present applicant, with: ApplicantWithLpas
             else
-              error!('', 403)
+              error!('Forbidden', 403)
             end
           rescue Mongoid::Errors::DocumentNotFound => e
-            error!(mongoid_exception_message(e), 404)
+            error!('Forbidden', 403)
           end
         end
       end

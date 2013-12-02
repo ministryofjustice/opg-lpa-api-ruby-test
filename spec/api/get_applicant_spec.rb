@@ -9,7 +9,7 @@ describe Opg::API, :type => :api do
     before do
       lpa_id # creates applicant and lpa
     end
-    it 'should return JSON' do
+    it 'returns JSON' do
       get "/api/applicants/#{applicant_id}", {}, { 'X-USER-ID' => email }
       response = JSON.parse last_response.body
       response['id'].should == applicant_id
@@ -28,21 +28,22 @@ describe Opg::API, :type => :api do
   end
 
   describe "GET applicant with invalid id" do
-    it 'should return 404' do
-      get "/api/applicants/xxyyzz"
-      last_response.status.should == 404
-      last_response.body.should == '{"error":"Document(s) not found for class Applicant with id(s) xxyyzz."}'
+    it 'returns 403 Forbidden' do
+      get "/api/applicants/xxyyzz", {}, { 'X-USER-ID' => email }
+      last_response.status.should == 403
+      last_response.body.should == '{"error":"Forbidden"}'
     end
   end
 
   describe "GET applicant when authenticated user is not the applicant" do
     before do
       lpa_id # creates applicant and lpa
+      get "/api/applicants/#{applicant_id}", {}, { 'X-USER-ID' => 'bad_user@example.com' }
     end
 
-    it 'should return 403' do
-      get "/api/applicants/#{applicant_id}", {}, { 'X-USER-ID' => 'bad_user@example.com' }
+    it 'returns 403 Forbidden' do
       last_response.status.should == 403
+      last_response.body.should == '{"error":"Forbidden"}'
     end
   end
 
