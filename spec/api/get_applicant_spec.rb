@@ -10,7 +10,7 @@ describe Opg::API, :type => :api do
       lpa_id # creates applicant and lpa
     end
     it 'should return JSON' do
-      get "/api/applicants/#{applicant_id}"
+      get "/api/applicants/#{applicant_id}", {}, { 'X-USER-ID' => email }
       response = JSON.parse last_response.body
       response['id'].should == applicant_id
 
@@ -34,4 +34,16 @@ describe Opg::API, :type => :api do
       last_response.body.should == '{"error":"Document(s) not found for class Applicant with id(s) xxyyzz."}'
     end
   end
+
+  describe "GET applicant when authenticated user is not the applicant" do
+    before do
+      lpa_id # creates applicant and lpa
+    end
+
+    it 'should return 403' do
+      get "/api/applicants/#{applicant_id}", {}, { 'X-USER-ID' => 'bad_user@example.com' }
+      last_response.status.should == 403
+    end
+  end
+
 end

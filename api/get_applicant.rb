@@ -44,8 +44,13 @@ NOTE
         end
         get do
           begin
+            user_id = request.env['X-USER-ID']
             applicant = Applicant.includes(:lpas).find(params[:id])
-            present applicant, with: ApplicantWithLpas
+            if applicant.email == user_id
+              present applicant, with: ApplicantWithLpas
+            else
+              error!('', 403)
+            end
           rescue Mongoid::Errors::DocumentNotFound => e
             error!(mongoid_exception_message(e), 404)
           end

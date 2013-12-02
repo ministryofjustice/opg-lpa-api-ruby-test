@@ -12,7 +12,10 @@ module Opg
 
       desc "Creates an LPA applicant."
       post do
-        handle_post { |attributes| Applicant.create(attributes) }
+        handle_post do |attributes, user_id|
+          attributes = attributes.merge(email: user_id)
+          Applicant.create(attributes)
+        end
       end
 
     end

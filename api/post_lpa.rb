@@ -13,7 +13,7 @@ module Opg
 
       desc "Creates a LPA application."
       post do
-        handle_post { |attributes| Lpa.create(attributes) }
+        handle_post { |attributes, user_id| Lpa.create(attributes) }
       end
 
     end

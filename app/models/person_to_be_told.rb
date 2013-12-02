@@ -7,4 +7,8 @@ class PersonToBeTold
   include PersonalDetailsWithPhone
 
   embedded_in :lpa
+
+  entity do
+    expose :email, if: ->(object, options) { object.email }
+  end
 end

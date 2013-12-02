@@ -5,13 +5,10 @@ module Opg
       attributes = params.except('route_info','format').to_hash
 
       begin
-        host = [ request.env['rack.url_scheme'], '://', request.host ].join('')
-
-        resource = yield attributes
+        resource = yield attributes, request.env['X-USER-ID']
 
         if resource.persisted?
-          uri = [ host, request.path, '/', resource.id, '.json' ].join('')
-          resource.update_attribute(:uri, uri)
+          resource.update_attribute(:uri, resource_uri(resource))
 
           present resource, with: resource.class.const_get(:Entity)
         else
@@ -22,5 +19,11 @@ module Opg
       end
     end
 
+    private
+
+    def resource_uri resource
+      host = [ request.env['rack.url_scheme'], '://', request.host ].join('')
+      uri = [ host, request.path, '/', resource.id, '.json' ].join('')
+    end
   end
 end
