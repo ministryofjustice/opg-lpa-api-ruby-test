@@ -13,8 +13,12 @@ module Opg
       desc "Creates an LPA applicant."
       post do
         handle_post do |attributes, user_id|
-          attributes = attributes.merge(email: user_id)
-          Applicant.create(attributes)
+          if Applicant.where(email: user_id).exists?
+            error!('Forbidden', 403)
+          else
+            attributes = attributes.merge(email: user_id)
+            Applicant.create(attributes)
+          end
         end
       end
 

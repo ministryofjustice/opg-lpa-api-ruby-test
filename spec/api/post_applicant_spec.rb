@@ -27,7 +27,7 @@ describe Opg::API, :type => :api do
     end
   end
 
-  describe "POST applicant including title, name, dob, and address postcode" do
+  describe "POST applicant with valid params" do
     before do
       post_applicant applicant_json
       @response = JSON.parse last_response.body
@@ -52,8 +52,18 @@ describe Opg::API, :type => :api do
       @response['email'].should be_nil
     end
 
-    it 'should set X-USER-ID value as email on Applicant' do
+    it 'sets X-USER-ID value as email on Applicant' do
       Applicant.last.email.should == email
+    end
+  end
+
+  describe "POST applicant with valid params when applicant already exists for authenticated user" do
+
+    it 'returns 403 Forbidden' do
+      post_applicant applicant_json
+      post_applicant applicant_json
+
+      last_response.status.should == 403
     end
   end
 
