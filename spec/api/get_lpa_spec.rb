@@ -7,17 +7,31 @@ describe Opg::API, :type => :api do
 
   describe "GET lpa with existing id" do
     it 'should return JSON' do
-      get "/api/lpas/#{lpa_id}"
+      id = lpa_id # creates applicant and lpa
+      get "/api/lpas/#{id}", {}, { 'X-USER-ID' => email }
       response = JSON.parse last_response.body
-      response['id'].should == lpa_id
+      response['id'].should == id
     end
   end
 
   describe "GET lpa with invalid id" do
-    it 'should return 404' do
-      get "/api/lpas/xxyyzz"
-      last_response.status.should == 404
-      last_response.body.should == '{"error":"Document(s) not found for class Lpa with id(s) xxyyzz."}'
+    it 'should return 403 Forbidden' do
+      get "/api/lpas/xxyyzz", {}, { 'X-USER-ID' => email }
+      last_response.status.should == 403
+      last_response.body.should == '{"error":"Forbidden"}'
     end
   end
+
+  describe "GET lpa when authenticated user is not the applicant" do
+    before do
+      id = lpa_id # creates applicant and lpa
+      get "/api/lpas/#{id}", {}, { 'X-USER-ID' => 'bad_user@example.com' }
+    end
+
+    it 'returns 403 Forbidden' do
+      last_response.status.should == 403
+      last_response.body.should == '{"error":"Forbidden"}'
+    end
+  end
+
 end
