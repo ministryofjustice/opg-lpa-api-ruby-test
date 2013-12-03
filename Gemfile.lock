@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ministryofjustice/x-moj-auth.git
-  revision: 73ebb804d34e0280f99e52abdbe7fff1610dd5a4
+  revision: 6b6b80e34fd1630cb0e4ec024d3b22bfe76ed6c4
   specs:
     rack_moj_auth (0.0.2)
       httparty (>= 0.12.0)

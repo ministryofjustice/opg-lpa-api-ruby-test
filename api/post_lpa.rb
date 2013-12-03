@@ -13,7 +13,11 @@ module Opg
 
       desc "Creates a LPA application."
       post do
-        handle_post { |attributes| Lpa.create(attributes) }
+        handle_post do |attributes, user_id|
+          if applicant = Applicant.find_by(email: user_id)
+            applicant.lpas.create(attributes)
+          end
+        end
       end
 
     end
