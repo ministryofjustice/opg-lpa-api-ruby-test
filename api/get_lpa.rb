@@ -20,6 +20,7 @@ module Opg
           begin
             lpa = Lpa.find(params[:id])
             applicant = lpa.applicant
+
             if applicant.email == user_id
               present lpa, with: Lpa::Entity
             else

@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/ministryofjustice/x-moj-auth.git
-  revision: b0bbfe9dcc5bc150d381acdbad2c310eac01fe88
-  branch: use_X_USER_ID_header_to_authenticate
+  revision: 6b6b80e34fd1630cb0e4ec024d3b22bfe76ed6c4
   specs:
     rack_moj_auth (0.0.2)
       httparty (>= 0.12.0)
