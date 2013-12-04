@@ -35,6 +35,7 @@ end
 
 namespace :db do
   namespace :mongoid do
+    desc "Create the indexes defined on Lpa and Applicant models"
     task create_indexes: :environment do
       Applicant.create_indexes
       Lpa.create_indexes
