@@ -13,7 +13,7 @@ shared_context "shared LPA setup" do
   end
 
   let(:applicant_json) do
-    person_json.except('email').merge(dob)
+    person_json.except('email').except('phone').merge(dob)
   end
 
   let(:donor_json) do

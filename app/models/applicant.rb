@@ -9,7 +9,7 @@ class Applicant
 
   include UriIdentifier
   include DateOfBirth
-  include PersonalDetailsWithPhone
+  include PersonalDetails
 
   has_many :lpas
 end
