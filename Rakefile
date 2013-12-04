@@ -26,9 +26,19 @@ task :environment do
   require File.expand_path("../config/environment", __FILE__)
 end
 
-task :routes => :environment do
+task routes: :environment do
   Opg::API.routes.each do |route|
     options = route.instance_values['options']
     puts [options[:method], options[:path], options[:description]].join("    ")
+  end
+end
+
+namespace :db do
+  namespace :mongoid do
+    task create_indexes: :environment do
+      Applicant.create_indexes
+      Lpa.create_indexes
+      nil
+    end
   end
 end
