@@ -12,6 +12,7 @@ Local installation
 ### Install mongodb
 
 E.g. on mac osx:
+
     brew install mongodb
 
 ### Clone repo and install gems
