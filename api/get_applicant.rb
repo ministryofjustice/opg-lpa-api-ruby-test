@@ -45,7 +45,13 @@ NOTE
         get do
           begin
             user_id = request.env['X-USER-ID']
-            applicant = Applicant.includes(:lpas).find(params[:id])
+            supplied_id = params[:id]
+
+            applicant = if supplied_id == 'current'
+                          Applicant.includes(:lpas).find_by(email: user_id)
+                        else
+                          Applicant.includes(:lpas).find(supplied_id)
+                        end
             if applicant.email == user_id
               present applicant, with: ApplicantWithLpas
             else
