@@ -6,12 +6,10 @@ describe Opg::API, :type => :api do
   include_context "shared LPA setup"
 
   describe "GET applicant with existing id" do
-    before do
-      lpa_id # creates applicant and lpa
-    end
 
     shared_examples 'returns applicant JSON' do
       before do
+        lpa_id # creates applicant and lpa
         get "/api/applicants/#{supplied_id}", {}, { 'X-USER-ID' => email }
       end
 
