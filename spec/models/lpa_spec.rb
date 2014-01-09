@@ -12,15 +12,15 @@ describe Lpa do
   end
 
   it "should be valid with nil type" do
-    Lpa.new(applicant_id: applicant.id).should be_valid
+    Lpa.new(applicant_id: applicant.id, :registration_applicants => {:type=> "", :ids => []}).should be_valid
   end
 
   it "should not be valid with blank type" do
-    Lpa.new(applicant_id: applicant.id, :type => "").should be_valid
+    Lpa.new(applicant_id: applicant.id, :type => "", :registration_applicants => {:type=> "", :ids => []}).should be_valid
   end
 
   it "should be valid with valid type" do
-    Lpa.new(applicant_id: applicant.id, :type => "Property and financial affairs").should be_valid
+    Lpa.new(applicant_id: applicant.id, :type => "Property and financial affairs", :registration_applicants => {:type=> "", :ids => []}).should be_valid
   end
 
   describe 'deleting attorney' do
