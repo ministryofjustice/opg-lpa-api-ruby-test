@@ -30,7 +30,7 @@ describe Opg::API, :type => :api do
 
   describe 'POST lpa including donor with blank field' do
     it "should return 422 error" do
-      json = { 'type' => 'health', 'donor' => donor_json.merge('last_name' => '') }
+      json = { 'type' => 'health', 'donor' => donor_json.merge('last_name' => '')}
       post_lpa json
       last_response.status.should == 422
       response = JSON.parse last_response.body
@@ -55,6 +55,7 @@ describe Opg::API, :type => :api do
         'attorneys' => [ attorney_json ]
       }
       post_lpa json
+      puts last_response
       last_response.status.should == 201
       response = JSON.parse last_response.body
       response['attorneys'].first.delete('id')

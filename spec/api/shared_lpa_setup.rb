@@ -33,8 +33,7 @@ shared_context "shared LPA setup" do
   let(:lpa_json) do
     json = {
       'applicant_id' => applicant_id, 'type' => 'health',
-      'donor' => donor_json,
-      'registration_applicants' => {:type=> "", :ids => []}
+      'donor' => donor_json
     }
   end
 

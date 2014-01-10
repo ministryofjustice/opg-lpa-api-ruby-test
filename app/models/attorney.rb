@@ -10,6 +10,8 @@ class Attorney
   include DateOfBirth
   include PersonalDetailsWithPhone
 
+  field :registration_applicant, type: Boolean, default: false
+
   embedded_in :lpa
 
   entity do

@@ -35,10 +35,6 @@ class Lpa
   accepts_nested_attributes_for :attorneys, allow_destroy: true
   accepts_nested_attributes_for :replacement_attorneys, allow_destroy: true
 
-  #Fields relevant for LPA Registration
-  field :registration_applicants, type: Object
-  validates :registration_applicants, presence: true
-
   include UriIdentifier
 
   entity do
@@ -49,8 +45,7 @@ class Lpa
       :how_attorneys_act_details,
       :how_replacement_attorneys_act,
       :how_replacement_attorneys_act_details,
-      :life_sustaining_treatment,
-      :registration_applicants
+      :life_sustaining_treatment
     ].each do |attribute|
       expose attribute, if: lambda { |object, options| object.send(attribute) }
     end

@@ -83,4 +83,16 @@ describe Opg::API, :type => :api do
       end
     end
   end
+
+  describe 'PUT lpa attorneys with one marked as registration applicant' do
+    before do
+      json = { 'attorneys' => [ attorney_json.merge( 'registration_applicant' => true ), attorney_json ] }
+      put "/api/lpas/#{lpa_id}", json
+    end
+
+    it 'should return JSON with the correct attorney marked as registration applicant' do
+      Lpa.find(lpa_id).attorneys[0].registration_applicant.should be_true
+      Lpa.find(lpa_id).attorneys[1].registration_applicant.should_not be_true
+    end
+  end
 end

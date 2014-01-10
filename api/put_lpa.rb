@@ -38,6 +38,7 @@ module Opg
           requires :id, type: String, desc: "LPA application ID."
         end
         put do
+
           attributes = PutLpa.clean_attributes params
           begin
             lpa = Lpa.find(attributes['id'])
