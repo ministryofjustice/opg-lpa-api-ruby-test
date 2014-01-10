@@ -95,4 +95,15 @@ describe Opg::API, :type => :api do
       Lpa.find(lpa_id).attorneys[1].registration_applicant.should_not be_true
     end
   end
+
+  describe 'PUT lpa with donor marked as registration applicant' do
+    before do
+      json = { 'donor' => donor_json.merge('registration_applicant' => true) }
+      put "/api/lpas/#{lpa_id}", json
+    end
+
+    it 'should return JSON with the donor marked as registration applicant' do
+      Lpa.find(lpa_id).donor.registration_applicant.should be_true
+    end
+  end
 end
