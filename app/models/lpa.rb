@@ -6,9 +6,6 @@ class Lpa
   include Mongoid::Timestamps
   include Grape::Entity::DSL
 
-  #Using dynamic addition of new attributes
-  include Mongoid::Attributes::Dynamic
-
   field :type, type: String
   field :when_to_use, type: String
   field :life_sustaining_treatment, type: String
